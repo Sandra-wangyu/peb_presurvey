@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>peb 月自然生技 — 品牌訪談問卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep:   #1e4035;
+    --green-mid:    #2d6a4f;
+    --green-soft:   #52b788;
+    --green-light:  #d8f3dc;
+    --green-pale:   #f0f7f4;
+    --gold:         #c9a96e;
+    --ink:          #1a1a1a;
+    --muted:        #6b7c74;
+    --border:       #c8ddd5;
+    --white:        #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--green-pale);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-deep);
+    padding: 72px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(82,183,136,.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 90%, rgba(201,169,110,.10) 0%, transparent 50%);
+  }
+  .hero-eyebrow {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 6vw, 60px);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: rgba(255,255,255,.65);
+    margin-top: 16px;
+    letter-spacing: .05em;
+    position: relative;
+  }
+  .hero-line {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto 0;
+    position: relative;
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    max-width: 680px;
+    margin: 48px auto 0;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .intro p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  /* ── FORM WRAPPER ── */
+  .form-wrap {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 0 20px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 52px 0 28px;
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 13px;
+    color: var(--green-soft);
+    letter-spacing: .15em;
+    white-space: nowrap;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--green-deep);
+    letter-spacing: .08em;
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 28px 32px 32px;
+    margin-bottom: 16px;
+    transition: box-shadow .2s, border-color .2s;
+    position: relative;
+  }
+  .q-card:focus-within {
+    border-color: var(--green-soft);
+    box-shadow: 0 4px 24px rgba(46,106,79,.10);
+  }
+  .q-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 28px; right: 28px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--green-light);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .q-label {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--green-deep);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    padding-right: 48px;
+  }
+  .q-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .q-hint::before { content: '✦  '; color: var(--gold); font-size: 10px; }
+
+  textarea {
+    width: 100%;
+    min-height: 96px;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.8;
+    padding: 8px 0;
+    resize: vertical;
+    outline: none;
+    transition: border-color .2s;
+  }
+  textarea:focus { border-bottom-color: var(--green-soft); }
+  textarea::placeholder { color: #bbb; }
+
+  /* ── SUBMIT ── */
+  .submit-wrap {
+    margin-top: 56px;
+    text-align: center;
+  }
+  .submit-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.8;
+  }
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green-deep);
+    color: var(--white);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    letter-spacing: .1em;
+    padding: 16px 48px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-submit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.06), transparent);
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-arrow { font-size: 18px; transition: transform .2s; }
+  .btn-submit:hover .btn-arrow { transform: translateX(4px); }
+
+  /* ── SUCCESS ── */
+  #success-msg {
+    display: none;
+    max-width: 520px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--green-soft);
+    border-radius: 12px;
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .success-icon { font-size: 40px; margin-bottom: 16px; }
+  .success-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--green-deep);
+    margin-bottom: 12px;
+  }
+  .success-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* ── ERROR ── */
+  #error-msg {
+    display: none;
+    margin-top: 16px;
+    color: #b94040;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: .1em;
+  }
+
+  /* ── LOADING ── */
+  .spinner {
+    display: none;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 56px 24px 48px; }
+    .q-card { padding: 24px 20px 28px; }
+    .q-card::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Brand Discovery Questionnaire</div>
+  <div class="hero-title">peb <em>月自然生技</em></div>
+  <div class="hero-sub">提案前訪談問卷 — 品牌現況了解</div>
+  <div class="hero-line"></div>
+</div>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <p>在正式提案前，希望透過以下 13 個問題更精準地了解品牌現況與目標，<br>以便提供最貼近需求的規劃方向。<br>填寫完成送出後，答案將直接寄送給我們，其餘細節當面討論。</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+<form id="qForm">
+
+  <!-- S1 通路 & 營收 -->
+  <div class="section-label reveal">
+    <span class="section-num">01</span>
+    <span class="section-title">通路 & 營收</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="1">
+    <div class="q-label">目前主要的經營通路有哪些？各通路的營收佔比大約是多少？</div>
+    <div class="q-hint">例：官網電商 / 月子中心 / 醫院上課 / 百貨快閃 / 團購 / 其他</div>
+    <textarea name="q1" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <div class="q-card reveal" data-num="2">
+    <div class="q-label">2026 年品牌最主要希望成長的銷售管道是？</div>
+    <div class="q-hint">例：百貨設櫃 / 自媒體導購 / 電商官網 / 醫護通路 / 課程收入——請依優先順序排列</div>
+    <textarea name="q2" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S2 消費者輪廓 -->
+  <div class="section-label reveal">
+    <span class="section-num">02</span>
+    <span class="section-title">消費者輪廓</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="3">
+    <div class="q-label">購買族群的輪廓是什麼？</div>
+    <div class="q-hint">性別、年齡層、生活習慣、購買動機——越具體越好</div>
+    <textarea name="q3" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <div class="q-card reveal" data-num="4">
+    <div class="q-label">目前會員數大約多少？回購比率約為多少？</div>
+    <textarea name="q4" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S3 產品重點 -->
+  <div class="section-label reveal">
+    <span class="section-num">03</span>
+    <span class="section-title">產品重點</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="5">
+    <div class="q-label">目前最熱賣的產品是什麼？2026 年最想主推的產品是哪個？原因是？</div>
+    <div class="q-hint">可分開回答「現況熱賣」與「未來主推」</div>
+    <textarea name="q5" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S4 課程 & 講座 -->
+  <div class="section-label reveal">
+    <span class="section-num">04</span>
+    <span class="section-title">課程 & 講座</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="6">
+    <div class="q-label">線上課程 / 企業講座目前的參與度和洽詢率如何？</div>
+    <div class="q-hint">是否有持續推進的計畫？與自媒體的連動策略是否已有初步想法？</div>
+    <textarea name="q6" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S5 素材 & 信任背書 -->
+  <div class="section-label reveal">
+    <span class="section-num">05</span>
+    <span class="section-title">素材 & 信任背書</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="7">
+    <div class="q-label">是否有可用的前後對比真實案例？</div>
+    <div class="q-hint">例如客戶使用前後的膚況、症狀改善回饋、文字或照片皆可</div>
+    <textarea name="q7" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <div class="q-card reveal" data-num="8">
+    <div class="q-label">是否有醫院合作、認證機構或其他背書資料可提供？</div>
+    <div class="q-hint">例：醫護推薦、法國有機認證、媒體曝光、合作單位 logo 等</div>
+    <textarea name="q8" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S6 社群現況 -->
+  <div class="section-label reveal">
+    <span class="section-num">06</span>
+    <span class="section-title">社群現況 & 過往推廣</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="9">
+    <div class="q-label">目前各社群平台的經營狀況如何？</div>
+    <div class="q-hint">IG / FB / LINE / YouTube / 小紅書——各平台粉絲數、更新頻率、互動狀況</div>
+    <textarea name="q9" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <div class="q-card reveal" data-num="10">
+    <div class="q-label">過去是否投放過廣告或合作過 KOL / 網紅？</div>
+    <div class="q-hint">若有，效果如何？有沒有特別有感或踩雷的經驗？</div>
+    <textarea name="q10" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S7 品牌定位 -->
+  <div class="section-label reveal">
+    <span class="section-num">07</span>
+    <span class="section-title">品牌定位 & 差異化</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="11">
+    <div class="q-label">消費者現在怎麼認識 peb？你希望他們怎麼認識 peb？</div>
+    <div class="q-hint">現況認知 vs. 理想品牌形象</div>
+    <textarea name="q11" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <div class="q-card reveal" data-num="12">
+    <div class="q-label">相比其他競品，peb 最核心的 3 個差異是什麼？</div>
+    <div class="q-hint">思考方向：成分、來源、護理邏輯、創辦人背景、服務方式……</div>
+    <textarea name="q12" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- S8 個人 IP -->
+  <div class="section-label reveal">
+    <span class="section-num">08</span>
+    <span class="section-title">個人 IP</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="q-card reveal" data-num="13">
+    <div class="q-label">創辦人本人是否願意在自媒體上出鏡，作為品牌 IP？</div>
+    <div class="q-hint">出鏡形式不限——短影片、reels、教學、幕後花絮等，了解意願與舒適度即可</div>
+    <textarea name="q13" placeholder="請填寫…" required></textarea>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap reveal">
+    <p class="submit-note">填寫完成後點擊送出，答案將直接寄送給我們。<br>其餘細節我們當面討論，感謝呂小姐撥冗填寫 🙏</p>
+    <button type="submit" class="btn-submit">
+      <span class="spinner" id="spinner"></span>
+      <span id="btn-text">送出問卷</span>
+      <span class="btn-arrow">→</span>
+    </button>
+    <div id="error-msg">送出失敗，請稍後再試或直接來信聯繫。</div>
+  </div>
+
+</form>
+
+<!-- SUCCESS -->
+<div id="success-msg" class="reveal">
+  <div class="success-icon">🌿</div>
+  <div class="success-title">感謝您的填寫</div>
+  <div class="success-body">答案已成功送出。<br>我們會在提案前仔細閱讀，<br>期待與您的見面討論 ✨</div>
+</div>
+
+</div><!-- /form-wrap -->
+
+<footer>peb 月自然生技 × 品牌提案前訪談 · 2026</footer>
+
+<script>
+  // ── Scroll reveal ──────────────────────────────────────
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Form submit via Formspree ──────────────────────────
+  // Uses Formspree (free tier) — answers emailed to eternalmi@gmail.com
+  // To activate: go to https://formspree.io, create free account,
+  // create a new form, copy your form ID and replace FORM_ID below.
+  const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← 替換這裡
+
+  const form = document.getElementById('qForm');
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+  const spinner = document.getElementById('spinner');
+  const btnText = document.getElementById('btn-text');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    spinner.style.display = 'block';
+    btnText.textContent = '送出中…';
+    errorMsg.style.display = 'none';
+
+    const data = new FormData(form);
+    // Build a readable email body
+    const questions = [
+      '01. 目前主要的經營通路有哪些？各通路的營收佔比大約是多少？',
+      '02. 2026 年品牌最主要希望成長的銷售管道是？',
+      '03. 購買族群的輪廓是什麼？',
+      '04. 目前會員數大約多少？回購比率約為多少？',
+      '05. 目前最熱賣的產品是什麼？2026 年最想主推的產品是哪個？原因是？',
+      '06. 線上課程 / 企業講座目前的參與度和洽詢率如何？',
+      '07. 是否有可用的前後對比真實案例？',
+      '08. 是否有醫院合作、認證機構或其他背書資料可提供？',
+      '09. 目前各社群平台的經營狀況如何？',
+      '10. 過去是否投放過廣告或合作過 KOL / 網紅？',
+      '11. 消費者現在怎麼認識 peb？你希望他們怎麼認識 peb？',
+      '12. 相比其他競品，peb 最核心的 3 個差異是什麼？',
+      '13. 創辦人本人是否願意在自媒體上出鏡，作為品牌 IP？',
+    ];
+
+    const payload = { _subject: 'peb 月自然生技｜訪談問卷回覆' };
+    questions.forEach((q, i) => {
+      payload[`Q${i+1}`] = `${q}\n${data.get(`q${i+1}`) || '（未填）'}`;
+    });
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+        setTimeout(() => successMsg.classList.add('visible'), 50);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      errorMsg.style.display = 'block';
+      spinner.style.display = 'none';
+      btnText.textContent = '送出問卷';
+    }
+  });
+</script>
+</body>
+</html>
